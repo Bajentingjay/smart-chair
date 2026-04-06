@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Chair Vitals</title>
-    <!-- 1. FIXED BOOTSTRAP LINK -->
+    <!-- 1. FULL BOOTSTRAP LINK (This makes the red and white cards appear) -->
     <link href="https://jsdelivr.net" rel="stylesheet">
     <style>
         .vitals-card { transition: transform 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: none; }
@@ -41,16 +41,15 @@
     </div>
 </div>
 
-<!-- 2. FIXED FIREBASE LOGIC -->
+<!-- 2. FULL FIREBASE LINKS (This lets the browser find the data) -->
 <script type="module">
-    // IMPORTANT: These links MUST include the full path below
     import { initializeApp } from "https://gstatic.com";
     import { getDatabase, ref, onValue } from "https://gstatic.com";
 
     const firebaseConfig = {
       apiKey: "AIzaSyChgNvn_pH25hYiEF84M60spNJ1tlvqQuc",
-      authDomain: "://firebaseapp.com",
-      databaseURL: "https://firebasedatabase.app",
+      authDomain: "iot-based-smart-chair.firebaseapp.com",
+      databaseURL: "https://iot-based-smart-chair-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "iot-based-smart-chair",
       storageBucket: "iot-based-smart-chair.firebasestorage.app",
       messagingSenderId: "251027409495",
@@ -63,7 +62,6 @@
 
     onValue(vitalsRef, (snapshot) => {
         const data = snapshot.val();
-        console.log("Data received:", data); 
         if (data) {
             document.getElementById('heartRate').innerText = data.heartRate || "--";
             document.getElementById('spo2').innerText = data.spo2 || "--";
@@ -74,3 +72,4 @@
 </script>
 </body>
 </html>
+
