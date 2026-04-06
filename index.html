@@ -1,150 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Chair | Health Monitoring</title>
-    <link href="https://jsdelivr.net" rel="stylesheet">
-    <style>
-        :root { --primary-blue: #1e293b; --accent-blue: #0d6efd; --bg-light: #f1f5f9; }
-        body { background-color: var(--bg-light); font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        
-        /* Sidebar Design */
-        .sidebar { background: var(--primary-blue); height: 100vh; color: white; position: fixed; width: 250px; padding: 20px; }
-        .nav-link { color: rgba(255,255,255,0.7); margin-bottom: 10px; border-radius: 8px; transition: 0.3s; }
-        .nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.1); color: white; }
-        
-        /* Card Design */
-        .main-content { margin-left: 260px; padding: 30px; }
-        .vitals-card { border: none; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); padding: 20px; }
-        .status-badge { font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; background: #dcfce7; color: #166534; }
-        
-        .value-text { font-size: 2.2rem; font-weight: 800; display: block; }
-        .unit-text { font-size: 1rem; color: #64748b; }
-        
-        .chair-img { border-radius: 15px; margin-top: 20px; width: 100%; border: 1px solid rgba(255,255,255,0.1); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Chair Dashboard</title>
+
+<!-- ✅ FIXED Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+:root {
+    --primary: #0f172a;
+    --accent: #2563eb;
+    --bg: #f1f5f9;
+}
+
+body {
+    background: var(--bg);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    background: linear-gradient(180deg, #0f172a, #1e293b);
+    color: white;
+    padding: 20px;
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 10px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+/* Main */
+.main {
+    margin-left: 260px;
+    padding: 30px;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.value {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Status colors */
+.normal { color: #16a34a; }
+.warning { color: #f59e0b; }
+.danger { color: #dc2626; }
+
+.status-dot {
+    font-size: 12px;
+}
+
+/* Hover effect */
+.card:hover {
+    transform: translateY(-4px);
+    transition: 0.2s;
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Sidebar Navigation -->
-    <div class="sidebar">
-        <h4 class="fw-bold mb-4">SMART CHAIR</h4>
-        <nav class="nav flex-column">
-            <a class="nav-link active" href="#">🏠 Dashboard</a>
-            <a class="nav-link" href="#">🕒 History</a>
-            <a class="nav-link" href="#">📄 Reports</a>
-            <a class="nav-link" href="#">⚙️ Settings</a>
-        </nav>
-        
-        <div class="mt-auto" style="position: absolute; bottom: 30px; width: 210px;">
-            <img src="https://ibb.co" class="chair-img" alt="chair">
-            <p class="small text-secondary mt-3 mb-0">Status: <span class="text-success">● Connected</span></p>
+<!-- Sidebar -->
+<div class="sidebar d-flex flex-column">
+    <h4 class="fw-bold">SMART CHAIR</h4>
+
+    <nav class="nav flex-column mt-4">
+        <a class="nav-link active">🏠 Dashboard</a>
+        <a class="nav-link">🕒 History</a>
+        <a class="nav-link">📄 Reports</a>
+        <a class="nav-link">⚙️ Settings</a>
+    </nav>
+
+    <div class="mt-auto">
+        <p class="small mt-4">Chair Status:</p>
+        <span class="text-success">● Connected</span>
+    </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold">Welcome, User</h3>
+            <p class="text-muted">Real-time health monitoring</p>
         </div>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h3 class="fw-bold mb-0">Welcome, User</h3>
-                <p class="text-muted">Real-time health monitoring at your seat.</p>
-            </div>
-            <img src="https://wikimedia.org" height="60" alt="CTU Logo">
-        </div>
+    <!-- Vitals -->
+    <div class="row g-4 mb-4">
 
-        <!-- Top Vitals Row -->
-        <div class="row g-4 mb-4">
-            <div class="col-md-3">
-                <div class="card vitals-card border-start border-danger border-4">
-                    <p class="mb-1 text-muted">Heart Rate</p>
-                    <span class="value-text"><span id="hr-val">--</span> <small class="unit-text">bpm</small></span>
-                    <span class="status-badge mt-2">● Normal</span>
+        <!-- Heart Rate -->
+        <div class="col-md-3">
+            <div class="card p-3 border-start border-danger border-4">
+                <p class="text-muted mb-1">Heart Rate</p>
+                <div class="value">
+                    <span id="hr-val">--</span> bpm
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card vitals-card border-start border-warning border-4">
-                    <p class="mb-1 text-muted">Temperature</p>
-                    <span class="value-text">36.6 <small class="unit-text">°C</small></span>
-                    <span class="status-badge mt-2">● Normal</span>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card vitals-card border-start border-primary border-4">
-                    <p class="mb-1 text-muted">SpO2</p>
-                    <span class="value-text"><span id="spo2-val">--</span> <small class="unit-text">%</small></span>
-                    <span class="status-badge mt-2">● Normal</span>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card vitals-card border-start border-purple border-4">
-                    <p class="mb-1 text-muted">Blood Pressure</p>
-                    <span class="value-text">118/76 <small class="unit-text">mmHg</small></span>
-                    <span class="status-badge mt-2">● Normal</span>
-                </div>
+                <span id="hr-status" class="status-dot">● Checking...</span>
             </div>
         </div>
 
-        <div class="row g-4">
-            <!-- User Profile Section -->
-            <div class="col-md-7">
-                <div class="card vitals-card h-100">
-                    <h5 class="fw-bold mb-4">User Profile</h5>
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="rounded-circle bg-secondary me-3" style="width: 60px; height: 60px;"></div>
-                        <div>
-                            <p class="fw-bold mb-0">Juan Dela Cruz</p>
-                            <p class="small text-muted mb-0">Student | BSIT - 3rd Year</p>
-                        </div>
-                    </div>
-                    <table class="table table-borderless">
-                        <tr><td class="text-muted">Age</td><td>20</td></tr>
-                        <tr><td class="text-muted">Height</td><td>170 cm</td></tr>
-                        <tr><td class="text-muted">Weight</td><td>65 kg</td></tr>
-                    </table>
+        <!-- Temperature -->
+        <div class="col-md-3">
+            <div class="card p-3 border-start border-warning border-4">
+                <p class="text-muted mb-1">Temperature</p>
+                <div class="value">
+                    <span id="temp-val">--</span> °C
                 </div>
-            </div>
-            
-            <!-- System Status -->
-            <div class="col-md-5">
-                <div class="card vitals-card h-100">
-                    <h5 class="fw-bold mb-4">System Status</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-3 d-flex align-items-center">✅ <span class="ms-2">Sensors Operational</span></li>
-                        <li class="mb-3 d-flex align-items-center">✅ <span class="ms-2">Cloud Connected</span></li>
-                        <li class="mb-3 d-flex align-items-center">🔋 <span class="ms-2">Battery 82%</span></li>
-                    </ul>
-                </div>
+                <span id="temp-status">● --</span>
             </div>
         </div>
+
+        <!-- SpO2 -->
+        <div class="col-md-3">
+            <div class="card p-3 border-start border-primary border-4">
+                <p class="text-muted mb-1">SpO2</p>
+                <div class="value">
+                    <span id="spo2-val">--</span> %
+                </div>
+                <span id="spo2-status">● --</span>
+            </div>
+        </div>
+
+        <!-- Battery -->
+        <div class="col-md-3">
+            <div class="card p-3 border-start border-success border-4">
+                <p class="text-muted mb-1">Battery</p>
+                <div class="value">
+                    <span id="bat-val">--</span> %
+                </div>
+                <span id="bat-status">● --</span>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Firebase Connection -->
-    <script type="module">
-        import { initializeApp } from "https://gstatic.com";
-        import { getDatabase, ref, onValue } from "https://gstatic.com";
+</div>
 
-        const firebaseConfig = {
-          apiKey: "AIzaSyChgNvn_pH25hYiEF84M60spNJ1tlvqQuc",
-          authDomain: "://firebaseapp.com",
-          databaseURL: "https://firebasedatabase.app",
-          projectId: "iot-based-smart-chair",
-          storageBucket: "iot-based-smart-chair.firebasestorage.app",
-          messagingSenderId: "251027409495",
-          appId: "1:251027409495:web:b9f448410d4693e22ff112"
-        };
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        const vitalsRef = ref(database, 'vitals');
+const firebaseConfig = {
+  apiKey: "AIzaSyChgNvn_pH25hYiEF84M60spNJ1tlvqQuc",
+  authDomain: "iot-based-smart-chair.firebaseapp.com",
+  databaseURL: "https://iot-based-smart-chair-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "iot-based-smart-chair",
+  storageBucket: "iot-based-smart-chair.firebasestorage.app",
+  messagingSenderId: "251027409495",
+  appId: "1:251027409495:web:b9f448410d4693e22ff112"
+};
 
-        onValue(vitalsRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                document.getElementById('hr-val').innerText = data.heartrate || "--";
-                document.getElementById('spo2-val').innerText = data.spo2 || "--";
-            }
-        });
-    </script>
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const vitalsRef = ref(db, "vitals");
+
+onValue(vitalsRef, (snapshot) => {
+    const d = snapshot.val();
+    if (!d) return;
+
+    // Values
+    document.getElementById("hr-val").innerText = d.heartrate ?? "--";
+    document.getElementById("spo2-val").innerText = d.spo2 ?? "--";
+    document.getElementById("temp-val").innerText = d.temperature ?? "--";
+    document.getElementById("bat-val").innerText = d.battery ?? "--";
+
+    // ✅ Smart Status Logic
+    setStatus("hr", d.heartrate, 60, 100);
+    setStatus("spo2", d.spo2, 95, 100);
+    setStatus("temp", d.temperature, 36, 37.5);
+    setStatus("bat", d.battery, 20, 100);
+});
+
+// Status function
+function setStatus(type, value, min, max) {
+    let el = document.getElementById(type + "-status");
+
+    if (value == null) {
+        el.innerText = "● No Data";
+        el.className = "warning";
+        return;
+    }
+
+    if (value >= min && value <= max) {
+        el.innerText = "● Normal";
+        el.className = "normal";
+    } else if (value < min) {
+        el.innerText = "● Low";
+        el.className = "warning";
+    } else {
+        el.innerText = "● High";
+        el.className = "danger";
+    }
+}
+</script>
+
 </body>
 </html>
