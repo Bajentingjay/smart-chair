@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Chair Dashboard</title>
+    <!-- Bootstrap CSS for Colors and Cards -->
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    <style>
+        .vitals-card { transition: transform 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: none; }
+        .vitals-card:hover { transform: translateY(-5px); }
+        body { background-color: #f8f9fa; }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <header class="pb-3 mb-5 border-bottom">
+        <h1 class="h3 fw-bold text-primary">🏥 Smart Chair Vitals</h1>
+    </header>
+
+    <div class="row">
+        <!-- Heart Rate Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 p-4 text-white bg-danger vitals-card">
+                <div class="card-body">
+                    <h2 class="card-title h4">Heart Rate</h2>
+                    <p class="display-2 fw-bold mb-0"><span id="heartRate">--</span> <small class="fs-4">BPM</small></p>
+                </div>
+            </div>
+        </div>
+        <!-- SpO2 Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 p-4 bg-white vitals-card">
+                <div class="card-body">
+                    <h2 class="card-title h4 text-dark">SpO2 Level</h2>
+                    <p class="display-2 fw-bold text-primary mb-0"><span id="spo2">--</span> <small class="fs-4">%</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Firebase Logic -->
+<script type="module">
+    import { initializeApp } from "https://gstatic.com";
+    import { getDatabase, ref, onValue } from "https://gstatic.com";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyChgNvn_pH25hYiEF84M60spNJ1tlvqQuc",
+      authDomain: "://firebaseapp.com",
+      databaseURL: "https://firebasedatabase.app",
+      projectId: "iot-based-smart-chair",
+      storageBucket: "iot-based-smart-chair.firebasestorage.app",
+      messagingSenderId: "251027409495",
+      appId: "1:251027409495:web:b9f448410d4693e22ff112"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const vitalsRef = ref(database, 'vitals');
+
+    onValue(vitalsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            document.getElementById('heartRate').innerText = data.heartRate || "--";
+            document.getElementById('spo2').innerText = data.spo2 || "--";
+        }
+    });
+</script>
+</body>
+</html>
