@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Chair Vitals</title>
-    <!-- 1. FULL BOOTSTRAP LINK (This makes the red and white cards appear) -->
+    <title>Smart Chair Dashboard</title>
     <link href="https://jsdelivr.net" rel="stylesheet">
     <style>
         .vitals-card { transition: transform 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: none; }
@@ -25,7 +24,7 @@
             <div class="card h-100 p-4 text-white bg-danger vitals-card">
                 <div class="card-body text-center">
                     <h2 class="card-title h4">Heart Rate</h2>
-                    <p class="display-2 fw-bold mb-0"><span id="heartRate">--</span> <small class="fs-4">BPM</small></p>
+                    <p class="display-2 fw-bold mb-0"><span id="heartRateDisplay">--</span> <small class="fs-4">BPM</small></p>
                 </div>
             </div>
         </div>
@@ -34,22 +33,21 @@
             <div class="card h-100 p-4 bg-white vitals-card">
                 <div class="card-body text-center">
                     <h2 class="card-title h4 text-dark">SpO2 Level</h2>
-                    <p class="display-2 fw-bold text-primary mb-0"><span id="spo2">--</span> <small class="fs-4">%</small></p>
+                    <p class="display-2 fw-bold text-primary mb-0"><span id="spo2Display">--</span> <small class="fs-4">%</small></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- 2. FULL FIREBASE LINKS (Corrected paths for browser compatibility) -->
 <script type="module">
     import { initializeApp } from "https://gstatic.com";
     import { getDatabase, ref, onValue } from "https://gstatic.com";
 
     const firebaseConfig = {
       apiKey: "AIzaSyChgNvn_pH25hYiEF84M60spNJ1tlvqQuc",
-      authDomain: "iot-based-smart-chair.firebaseapp.com",
-      databaseURL: "https://iot-based-smart-chair-default-rtdb.asia-southeast1.firebasedatabase.app",
+      authDomain: "://firebaseapp.com",
+      databaseURL: "https://firebasedatabase.app",
       projectId: "iot-based-smart-chair",
       storageBucket: "iot-based-smart-chair.firebasestorage.app",
       messagingSenderId: "251027409495",
@@ -63,11 +61,10 @@
     onValue(vitalsRef, (snapshot) => {
         const data = snapshot.val();
         if (data) {
-            document.getElementById('heartRate').innerText = data.heartRate || "--";
-            document.getElementById('spo2').innerText = data.spo2 || "--";
+            // MATCHING DATABASE NAMES: heartrate and spo2
+            document.getElementById('heartRateDisplay').innerText = data.heartrate || "--";
+            document.getElementById('spo2Display').innerText = data.spo2 || "--";
         }
-    }, (error) => {
-        console.error("Firebase Error:", error);
     });
 </script>
 </body>
