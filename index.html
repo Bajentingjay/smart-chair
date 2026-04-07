@@ -1,382 +1,118 @@
 <!DOCTYPE html>
-
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Clinical Vanguard | Smart Chair Dashboard</title>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Google Fonts: Inter -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8""")/>>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport""")/>>
+    <title>Clinical Vanguard | Smart Chair Dashboard</title>
+    <script src="https://tailwindcss.com"></script>
+    <link href="https://googleapis.com" rel="stylesheet""")/>>
+    <link href="https://googleapis.com" rel="stylesheet""")/>>
+    <script id="tailwind-config">
         tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-tertiary-container": "#38963e",
-                      "on-primary-fixed": "#101c2f",
-                      "surface-container-high": "#e7e8e9",
-                      "inverse-surface": "#2e3132",
-                      "tertiary-fixed-dim": "#7ddc7a",
-                      "surface-variant": "#e1e3e4",
-                      "on-secondary": "#ffffff",
-                      "primary-fixed": "#d7e3fd",
-                      "surface-container": "#edeeef",
-                      "on-tertiary": "#ffffff",
-                      "on-primary-container": "#79849c",
-                      "outline-variant": "#c5c6cd",
-                      "on-background": "#191c1d",
-                      "inverse-on-surface": "#f0f1f2",
-                      "primary-fixed-dim": "#bbc7e1",
-                      "tertiary-container": "#002204",
-                      "on-tertiary-fixed-variant": "#005313",
-                      "on-secondary-fixed": "#001c38",
-                      "surface-tint": "#535f75",
-                      "on-error-container": "#93000a",
-                      "secondary": "#0060a8",
-                      "on-secondary-container": "#003663",
-                      "surface-bright": "#f8f9fa",
-                      "surface": "#f8f9fa",
-                      "tertiary": "#000000",
-                      "on-primary-fixed-variant": "#3c475c",
-                      "on-surface": "#191c1d",
-                      "secondary-fixed": "#d3e4ff",
-                      "outline": "#75777d",
-                      "surface-container-low": "#f3f4f5",
-                      "on-surface-variant": "#45474d",
-                      "surface-container-highest": "#e1e3e4",
-                      "on-secondary-fixed-variant": "#004881",
-                      "secondary-fixed-dim": "#a2c9ff",
-                      "primary": "#000000",
-                      "on-tertiary-fixed": "#002204",
-                      "inverse-primary": "#bbc7e1",
-                      "error-container": "#ffdad6",
-                      "on-primary": "#ffffff",
-                      "on-error": "#ffffff",
-                      "tertiary-fixed": "#98f994",
-                      "error": "#ba1a1a",
-                      "surface-container-lowest": "#ffffff",
-                      "background": "#f8f9fa",
-                      "secondary-container": "#47a1ff",
-                      "surface-dim": "#d9dadb",
-                      "primary-container": "#101c2f"
-              },
-              "borderRadius": {
-                      "DEFAULT": "1rem",
-                      "lg": "2rem",
-                      "xl": "3rem",
-                      "full": "9999px"
-              },
-              "fontFamily": {
-                      "headline": ["Inter"],
-                      "body": ["Inter"],
-                      "label": ["Inter"]
-              }
-            },
-          }
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-dark": "#0a1629",
+                        "ctu-blue": "#0060a8",
+                    }
+                }
+            }
         }
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         body { font-family: 'Inter', sans-serif; }
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .sidebar-active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border-left: 4px solid #0060a8;
-            border-radius: 0 9999px 9999px 0;
-        }
-        .pulse-dot {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
+        .pulse-dot { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     </style>
 </head>
-<body class="bg-surface text-on-surface antialiased overflow-x-hidden">
-<!-- SideNavBar (Shared Component) -->
-<aside class="h-screen w-72 fixed left-0 top-0 bg-[#0a1629] text-white font-['Inter'] antialiased shadow-2xl flex flex-col py-8 z-50">
-<div class="px-8 mb-10">
-<div class="flex items-center gap-3 mb-2">
-<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
-<img alt="Cebu Technological University Logo" class="w-8 h-8" data-alt="minimalist Cebu Technological University seal logo clean vector style on white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB__PZcDB95J_aQr8Jz5oCpw6NmYfSW-MX2AoNC8Ug_Mt-v-j9Y9xEME76_gl3XMbL0EGoTQK5AAbobEbBKFHGF2JtWA9mrhPtD8dn-80DHVY7V2RKo8p8Kr_n-YWe3fuD0I2hQPwiMiJTQZ3zM1vpXbommYX5gHiUstgKZFEBqvhAYOroFXRFgiZCNrIM3ibJuRUJE5nmKpf0ALYhtVsBkIeEOx3mwkLK7bPwGG6Ya7VJgYyYADDoDQOu3DWiIwUsv9msem_-BWIHN"/>
-</div>
-<div>
-<h1 class="text-xl font-bold tracking-tight text-white leading-tight">CTU Health</h1>
-<p class="text-[10px] text-on-primary-container uppercase tracking-widest font-semibold">Clinical Vanguard</p>
-</div>
-</div>
-</div>
-<nav class="flex-1 px-4 space-y-1">
-<a class="flex items-center gap-3 px-4 py-3 bg-white/10 text-white rounded-r-full border-l-4 border-[#0060a8] transition-all duration-200 cursor-pointer" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-medium">Dashboard</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 cursor-pointer active:scale-95" href="#">
-<span class="material-symbols-outlined" data-icon="history">history</span>
-<span class="font-medium">History</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 cursor-pointer active:scale-95" href="#">
-<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
-<span class="font-medium">Reports</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 cursor-pointer active:scale-95" href="#">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-medium">Settings</span>
-</a>
-</nav>
-<div class="mt-auto px-4">
-<div class="glass-panel rounded-lg p-4 relative overflow-hidden group">
-<div class="relative z-10">
-<p class="text-[10px] font-bold text-secondary tracking-widest mb-1">IoT-BASED SMART CHAIR</p>
-<h4 class="text-sm font-semibold mb-3">Monitoring Active</h4>
-<div class="flex items-center gap-2 text-xs text-on-tertiary-container bg-tertiary-container/20 w-fit px-2 py-1 rounded-full">
-<span class="w-2 h-2 rounded-full bg-on-tertiary-container pulse-dot"></span>
-                        Connected
-                    </div>
-</div>
-<!-- Abstract Chair Graphic Placeholder -->
-<div class="absolute -right-4 -bottom-4 opacity-20 group-hover:opacity-30 transition-opacity">
-<span class="material-symbols-outlined text-6xl" data-icon="chair">chair</span>
-</div>
-</div>
-<div class="mt-6 flex items-center gap-3 px-4 py-3 text-slate-400">
-<span class="material-symbols-outlined" data-icon="sensors">sensors</span>
-<span class="text-xs font-medium">Status: Connected</span>
-</div>
-</div>
+<body class="bg-[#f8f9fa] text-[#191c1d] antialiased overflow-x-hidden">
+
+<aside class="h-screen w-72 fixed left-0 top-0 bg-[#0a1629] text-white flex flex-col py-8 z-50 shadow-2xl">
+    <div class="px-8 mb-10">
+        <div class="flex items-center gap-3 mb-2">
+            <!-- FIXED LOGO: Using Official CTU Seal -->
+            <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+                <img alt="CTU Official Logo" 
+                     src="https://ctu.edu.ph" 
+                     class="w-full h-full object-contain""")/>>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight text-white leading-tight">CTU Health</h1>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Clinical Vanguard</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FUNCTIONAL NAVIGATION -->
+    <nav id="main-nav" class="flex-1 px-4 space-y-1">
+        <a class="nav-item flex items-center gap-3 px-4 py-3 bg-white/10 text-white rounded-r-full border-l-4 border-[#0060a8]" href="#dashboard">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="font-medium">Dashboard</span>
+        </a>
+        <a class="nav-item flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="#history">
+            <span class="material-symbols-outlined">history</span>
+            <span class="font-medium">History</span>
+        </a>
+        <a class="nav-item flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="#reports">
+            <span class="material-symbols-outlined">assessment</span>
+            <span class="font-medium">Reports</span>
+        </a>
+        <a class="nav-item flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="#settings">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-medium">Settings</span>
+        </a>
+    </nav>
+
+    <div class="mt-auto px-4">
+        <div class="bg-white/5 rounded-lg p-4 relative overflow-hidden group">
+            <p class="text-[10px] font-bold text-[#47a1ff] tracking-widest mb-1">IoT-BASED SMART CHAIR</p>
+            <h4 class="text-sm font-semibold mb-3">Monitoring Active</h4>
+            <div class="flex items-center gap-2 text-xs text-green-400 bg-green-400/10 w-fit px-2 py-1 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-green-400 pulse-dot"></span>
+                Connected
+            </div>
+        </div>
+    </div>
 </aside>
-<!-- TopNavBar (Shared Component) -->
-<header class="fixed top-0 right-0 left-72 h-20 bg-[#f8f9fa] flex justify-between items-center px-10 w-full z-40">
-<div class="flex flex-col">
-<h2 class="text-lg font-semibold text-[#000000]">Welcome, User</h2>
-<p class="text-xs text-slate-500 font-medium">Real-time health monitoring at your seat.</p>
-</div>
-<div class="flex items-center gap-6">
-<div class="flex items-center gap-4 border-r border-slate-200 pr-6">
-<button class="text-slate-500 hover:text-[#0060a8] transition-colors active:scale-95">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-</button>
-<button class="text-slate-500 hover:text-[#0060a8] transition-colors active:scale-95">
-<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-</button>
-</div>
-<div class="flex items-center gap-3">
-<div class="text-right">
-<p class="text-sm font-bold text-primary">Clinical Monitoring</p>
-<p class="text-[10px] text-secondary font-bold uppercase tracking-tight">Main Wing Station</p>
-</div>
-<img alt="User Profile" class="w-10 h-10 rounded-full border-2 border-white shadow-sm" data-alt="professional medical staff headshot portrait with warm hospital lighting and soft bokeh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr8xHn9K1RmNDTVYZMxwrX4ITwVl_Bo--uuZPf2yHRrdOmofiZGLp3PqFEy7LMXLbuHLxp_qyj-Knz2v_YPlvQLnjQwf0qkzNUhfBnX78t35sPbJCnh3Yyh93PZZlBS6dOh70NB-M0RUCJnaLm1LXRTo4wVQMevhfEMhRmzHGCuJFttCZJFr1pFGvx0FqwJ3KJb_eWdfY7jTuDQzZst17C-8sU9SNJ3t2X-z7unzAPlAxCJ7XQVexVP_h63Be3hKDLcvM8_mVJSaTb"/>
-</div>
-</div>
-</header>
-<!-- Main Content Canvas -->
-<main class="ml-72 pt-20 p-8 min-h-screen bg-surface">
-<div class="max-w-[1400px] mx-auto space-y-8">
-<!-- Vitals Grid -->
-<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<!-- Heart Rate -->
-<div class="bg-surface-container-lowest rounded-lg p-6 shadow-sm border border-black/[0.03] flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div class="p-3 rounded-full bg-error/10 text-error">
-<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
-</div>
-<div class="flex items-center gap-2 bg-on-tertiary-container/10 px-2 py-1 rounded-full">
-<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
-<span class="text-[10px] font-bold text-on-tertiary-container uppercase">Normal</span>
-</div>
-</div>
-<div>
-<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Heart Rate</p>
-<div class="flex items-baseline gap-1 mt-1">
-<span class="text-4xl font-bold tracking-tight text-primary" id="hr">72</span>
-<span class="text-sm font-medium text-on-surface-variant">bpm</span>
-</div>
-</div>
-</div>
-<!-- Temperature -->
-<div class="bg-surface-container-lowest rounded-lg p-6 shadow-sm border border-black/[0.03] flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div class="p-3 rounded-full bg-orange-500/10 text-orange-500">
-<span class="material-symbols-outlined" data-icon="device_thermostat">device_thermostat</span>
-</div>
-</div>
-<div>
-<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Temperature</p>
-<div class="flex items-baseline gap-1 mt-1">
-<span class="text-4xl font-bold tracking-tight text-primary" id="temp">36.5</span>
-<span class="text-sm font-medium text-on-surface-variant">°C</span>
-</div>
-</div>
-</div>
-<!-- SpO2 -->
-<div class="bg-surface-container-lowest rounded-lg p-6 shadow-sm border border-black/[0.03] flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div class="p-3 rounded-full bg-secondary/10 text-secondary">
-<span class="material-symbols-outlined" data-icon="air">air</span>
-</div>
-</div>
-<div>
-<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">SpO2</p>
-<div class="flex items-baseline gap-1 mt-1">
-<span class="text-4xl font-bold tracking-tight text-primary" id="spo2">98</span>
-<span class="text-sm font-medium text-on-surface-variant">%</span>
-</div>
-</div>
-</div>
-<!-- Blood Pressure / Battery -->
-<div class="bg-surface-container-lowest rounded-lg p-6 shadow-sm border border-black/[0.03] flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div class="p-3 rounded-full bg-purple-600/10 text-purple-600">
-<span class="material-symbols-outlined" data-icon="battery_charging_full">battery_charging_full</span>
-</div>
-</div>
-<div>
-<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">System Battery</p>
-<div class="flex items-baseline gap-1 mt-1">
-<span class="text-4xl font-bold tracking-tight text-primary" id="bat">85</span>
-<span class="text-sm font-medium text-on-surface-variant">%</span>
-</div>
-</div>
-</div>
-</section>
-<!-- Middle Section: Profile & System Status -->
-<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-<!-- User Profile Card -->
-<div class="lg:col-span-2 bg-surface-container-lowest rounded-lg p-8 shadow-sm border border-black/[0.03]">
-<div class="flex justify-between items-center mb-8">
-<h3 class="text-xl font-bold text-primary">User Profile</h3>
-<button class="text-secondary text-sm font-bold flex items-center gap-1 hover:underline">
-                            Edit Profile
-                            <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
-</button>
-</div>
-<div class="flex flex-col md:flex-row gap-10">
-<div class="flex-shrink-0">
-<div class="w-32 h-32 rounded-2xl overflow-hidden shadow-lg border-4 border-surface">
-<img alt="User Profile" class="w-full h-full object-cover" data-alt="close up headshot of a friendly young Filipino male student wearing casual university clothing against a clean white interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdKMsupxLfNDz1T5hCXFDhrDd_-N7ODq34LG-QYRfxm0HhOLh86bYFkCdlIggLvEy8MTiABO6bH9HPZJhG_My7YhsVmGwUnL3_SKHQJ3zm4QckZDtDRa42c3OsXk8bfmaY08ij7uy7dxTxKbhNfSG4rIR7QLS-crreM-U2hmbJyKLiLmD3yMF1_cWt4Fmw0ZOYZfvMtR0WSpoqrxZIEKb1McPRYc16UcFuctyp7VvnUwplMFAMWY1t2dqyfavoi-hs0dtInyD6RRMI"/>
-</div>
-</div>
-<div class="flex-1 grid grid-cols-2 gap-y-6 gap-x-12">
-<div>
-<label class="text-[10px] font-bold text-on-primary-container uppercase tracking-widest block mb-1">Full Name</label>
-<p class="text-lg font-semibold text-primary">Juan Dela Cruz</p>
-</div>
-<div>
-<label class="text-[10px] font-bold text-on-primary-container uppercase tracking-widest block mb-1">Occupation</label>
-<p class="text-lg font-semibold text-primary">Student</p>
-</div>
-<div>
-<label class="text-[10px] font-bold text-on-primary-container uppercase tracking-widest block mb-1">Academic Year</label>
-<p class="text-lg font-semibold text-primary">BSIT - 3rd Year</p>
-</div>
-<div>
-<label class="text-[10px] font-bold text-on-primary-container uppercase tracking-widest block mb-1">Age / Sex</label>
-<p class="text-lg font-semibold text-primary">20 / Male</p>
-</div>
-</div>
-</div>
-</div>
-<!-- System Status -->
-<div class="bg-surface-container-lowest rounded-lg p-8 shadow-sm border border-black/[0.03]">
-<h3 class="text-xl font-bold text-primary mb-8">System Status</h3>
-<div class="space-y-6">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-on-tertiary-container/10 flex items-center justify-center text-on-tertiary-container">
-<span class="material-symbols-outlined text-lg" data-icon="check_circle">check_circle</span>
-</div>
-<span class="font-medium text-primary">Vital Sensors</span>
-</div>
-<span class="text-[10px] font-bold text-on-tertiary-container uppercase tracking-widest">Active</span>
-</div>
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-on-tertiary-container/10 flex items-center justify-center text-on-tertiary-container">
-<span class="material-symbols-outlined text-lg" data-icon="check_circle">check_circle</span>
-</div>
-<span class="font-medium text-primary">Data Streaming</span>
-</div>
-<span class="text-[10px] font-bold text-on-tertiary-container uppercase tracking-widest">Stable</span>
-</div>
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-on-tertiary-container/10 flex items-center justify-center text-on-tertiary-container">
-<span class="material-symbols-outlined text-lg" data-icon="check_circle">check_circle</span>
-</div>
-<span class="font-medium text-primary">Local Storage</span>
-</div>
-<span class="text-[10px] font-bold text-on-tertiary-container uppercase tracking-widest">Ready</span>
-</div>
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-on-tertiary-container/10 flex items-center justify-center text-on-tertiary-container">
-<span class="material-symbols-outlined text-lg" data-icon="check_circle">check_circle</span>
-</div>
-<span class="font-medium text-primary">Power Supply</span>
-</div>
-<span class="text-[10px] font-bold text-on-tertiary-container uppercase tracking-widest">Good</span>
-</div>
-</div>
-</div>
-</section>
-<!-- Quick Actions Bento Grid -->
-<section class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-<div class="group cursor-pointer bg-secondary-container text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-<div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined" data-icon="history">history</span>
-</div>
-<h4 class="text-lg font-bold mb-1">View History</h4>
-<p class="text-sm text-white/80">Analyze past readings</p>
-</div>
-<div class="group cursor-pointer bg-[#38963e] text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-<div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
-</div>
-<h4 class="text-lg font-bold mb-1">Generate Report</h4>
-<p class="text-sm text-white/80">Export clinical data</p>
-</div>
-<div class="group cursor-pointer bg-[#ff9800] text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-<div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined" data-icon="tune">tune</span>
-</div>
-<h4 class="text-lg font-bold mb-1">Configure Chair</h4>
-<p class="text-sm text-white/80">Adjust chair settings</p>
-</div>
-<div class="group cursor-pointer bg-[#673ab7] text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-<div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined" data-icon="help">help</span>
-</div>
-<h4 class="text-lg font-bold mb-1">Help &amp; Support</h4>
-<p class="text-sm text-white/80">Get system assistance</p>
-</div>
-</section>
-</div>
+
+<main class="ml-72 p-10">
+    <header class="flex justify-between items-center mb-8">
+        <h2 id="page-title" class="text-2xl font-bold text-slate-800">Dashboard Overview</h2>
+        <div class="text-sm text-slate-500">Status: <span class="text-green-600 font-semibold">Live Data</span></div>
+    </header>
+    
+    <div id="content-area" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Content will change based on navigation -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <p class="text-slate-500 text-sm">Active Users</p>
+            <h3 class="text-3xl font-bold">1,284</h3>
+        </div>
+    </div>
 </main>
-<!-- FAB Suppression (Per Mandate) - Not rendering for Dashboard view -->
-<!-- Firebase Integration Logic Placeholder -->
-<script type="module">
-        // Firebase configuration and listeners would go here
-        // Mapping: hr -> #hr, spo2 -> #spo2, temp -> #temp, bat -> #bat
-    </script>
-<!-- Navigation Logic -->
+
 <script>
-        function showPage(pageId, element) {
-            // Logic to switch active classes and display hidden divs
-            // Simplified for the demo dashboard focus
-            console.log('Navigating to:', pageId);
-        }
-    </script>
-</body></html>
+    // DASHBOARD FUNCTIONALITY: Handle Tab Switching
+    const navItems = document.querySelectorAll('.nav-item');
+    const pageTitle = document.getElementById('page-title');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            // 1. Update Active UI State
+            navItems.forEach(i => {
+                i.classList.remove('bg-white/10', 'text-white', 'border-l-4', 'border-[#0060a8]');
+                i.classList.add('text-slate-400');
+            });
+            item.classList.add('bg-white/10', 'text-white', 'border-l-4', 'border-[#0060a8]');
+            item.classList.remove('text-slate-400');
+
+            // 2. Update Title (Functionality)
+            const label = item.querySelector('span:last-child').innerText;
+            pageTitle.innerText = label + " Overview";
+        });
+    });
+</script>
+
+</body>
+</html>
