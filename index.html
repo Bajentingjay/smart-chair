@@ -1,117 +1,123 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
-    <meta charset="utf-8""")/>>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport""")/>>
-    <title>Clinical Vanguard | Smart Chair Dashboard</title>
-    <script src="https://tailwindcss.com"></script>
-    <link href="https://googleapis.com" rel="stylesheet""")/>>
-    <link href="https://googleapis.com" rel="stylesheet""")/>>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary-dark": "#0a1629",
-                        "ctu-blue": "#0060a8",
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        body { font-family: 'Inter', sans-serif; }
-        .pulse-dot { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    </style>
-</head>
-<body class="bg-[#f8f9fa] text-[#191c1d] antialiased overflow-x-hidden">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTU HEALTH MONITORING SYSTEM</title>
 
-<aside class="h-screen w-72 fixed left-0 top-0 bg-[#0a1629] text-white flex flex-col py-8 z-50 shadow-2xl">
-    <div class="px-8 mb-10">
-        <div class="flex items-center gap-3 mb-2">
-            <!-- FIXED LOGO: Using Official CTU Seal -->
-            <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                <img alt="CTU Official Logo" 
-                     src="https://ctu.edu.ph" 
-                     class="w-full h-full object-contain""")/>>
-            </div>
-            <div>
-                <h1 class="text-xl font-bold tracking-tight text-white leading-tight">CTU Health</h1>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Clinical Vanguard</p>
-            </div>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="bg-gray-100">
+
+<!-- SIDEBAR -->
+<aside class="fixed w-72 h-full bg-[#0a1629] text-white p-6">
+
+    <!-- LOGO -->
+    <div class="flex items-center gap-3 mb-10">
+        <div class="w-12 h-12 bg-white rounded-full overflow-hidden">
+            <img src="https://upload.wikimedia.org/wikipedia/en/4/4c/Cebu_Technological_University_logo.png">
+        </div>
+        <div>
+            <h1 class="font-bold">CTU HEALTH</h1>
+            <p class="text-xs text-gray-400">CLINICAL VANGUARD</p>
         </div>
     </div>
 
-    <!-- FUNCTIONAL NAVIGATION -->
-    <nav id="main-nav" class="flex-1 px-4 space-y-1">
-        <a class="nav-item flex items-center gap-3 px-4 py-3 bg-white/10 text-white rounded-r-full border-l-4 border-[#0060a8]" href="#dashboard">
-            <span class="material-symbols-outlined">dashboard</span>
-            <span class="font-medium">Dashboard</span>
-        </a>
-        <a class="nav-item flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="#history">
-            <span class="material-symbols-outlined">history</span>
-            <span class="font-medium">History</span>
-        </a>
-        <a class="nav-item flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="#reports">
-            <span class="material-symbols-outlined">assessment</span>
-            <span class="font-medium">Reports</span>
-        </a>
-        <a class="nav-item flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="#settings">
-            <span class="material-symbols-outlined">settings</span>
-            <span class="font-medium">Settings</span>
-        </a>
+    <!-- NAV -->
+    <nav class="space-y-2">
+        <button onclick="showPage('dashboard')" class="nav-btn w-full text-left p-3 bg-blue-600 rounded">Dashboard</button>
+        <button onclick="showPage('history')" class="nav-btn w-full text-left p-3 hover:bg-gray-700 rounded">History</button>
+        <button onclick="showPage('reports')" class="nav-btn w-full text-left p-3 hover:bg-gray-700 rounded">Reports</button>
+        <button onclick="showPage('settings')" class="nav-btn w-full text-left p-3 hover:bg-gray-700 rounded">Settings</button>
     </nav>
 
-    <div class="mt-auto px-4">
-        <div class="bg-white/5 rounded-lg p-4 relative overflow-hidden group">
-            <p class="text-[10px] font-bold text-[#47a1ff] tracking-widest mb-1">IoT-BASED SMART CHAIR</p>
-            <h4 class="text-sm font-semibold mb-3">Monitoring Active</h4>
-            <div class="flex items-center gap-2 text-xs text-green-400 bg-green-400/10 w-fit px-2 py-1 rounded-full">
-                <span class="w-2 h-2 rounded-full bg-green-400 pulse-dot"></span>
-                Connected
-            </div>
-        </div>
-    </div>
 </aside>
 
+<!-- MAIN -->
 <main class="ml-72 p-10">
-    <header class="flex justify-between items-center mb-8">
-        <h2 id="page-title" class="text-2xl font-bold text-slate-800">Dashboard Overview</h2>
-        <div class="text-sm text-slate-500">Status: <span class="text-green-600 font-semibold">Live Data</span></div>
-    </header>
-    
-    <div id="content-area" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Content will change based on navigation -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <p class="text-slate-500 text-sm">Active Users</p>
-            <h3 class="text-3xl font-bold">1,284</h3>
+
+    <h2 id="title" class="text-2xl font-bold mb-6">Dashboard</h2>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="page">
+        <div class="grid grid-cols-3 gap-6">
+
+            <div class="bg-white p-6 rounded shadow">
+                <p>Active Users</p>
+                <h1 class="text-3xl font-bold">1,284</h1>
+            </div>
+
+            <div class="bg-white p-6 rounded shadow">
+                <p>Posture Alerts</p>
+                <h1 class="text-3xl font-bold text-red-500">23</h1>
+            </div>
+
+            <div class="bg-white p-6 rounded shadow">
+                <p>System Status</p>
+                <h1 class="text-green-500 font-bold">ACTIVE</h1>
+            </div>
+
+        </div>
+
+        <!-- CHART -->
+        <div class="bg-white p-6 mt-6 rounded shadow">
+            <canvas id="myChart"></canvas>
         </div>
     </div>
+
+    <!-- HISTORY -->
+    <div id="history" class="page hidden">
+        <div class="bg-white p-6 rounded shadow">
+            <h3 class="font-bold mb-3">User Logs</h3>
+            <p>No data yet...</p>
+        </div>
+    </div>
+
+    <!-- REPORTS -->
+    <div id="reports" class="page hidden">
+        <div class="bg-white p-6 rounded shadow">
+            <h3 class="font-bold mb-3">Reports</h3>
+            <p>Generate reports soon...</p>
+        </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="settings" class="page hidden">
+        <div class="bg-white p-6 rounded shadow">
+            <h3 class="font-bold mb-3">System Settings</h3>
+            <p>Configuration panel...</p>
+        </div>
+    </div>
+
 </main>
 
 <script>
-    // DASHBOARD FUNCTIONALITY: Handle Tab Switching
-    const navItems = document.querySelectorAll('.nav-item');
-    const pageTitle = document.getElementById('page-title');
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+    document.getElementById(pageId).classList.remove('hidden');
+    document.getElementById('title').innerText = pageId.charAt(0).toUpperCase() + pageId.slice(1);
+}
 
-    navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            // 1. Update Active UI State
-            navItems.forEach(i => {
-                i.classList.remove('bg-white/10', 'text-white', 'border-l-4', 'border-[#0060a8]');
-                i.classList.add('text-slate-400');
-            });
-            item.classList.add('bg-white/10', 'text-white', 'border-l-4', 'border-[#0060a8]');
-            item.classList.remove('text-slate-400');
+// Chart
+const ctx = document.getElementById('myChart');
 
-            // 2. Update Title (Functionality)
-            const label = item.querySelector('span:last-child').innerText;
-            pageTitle.innerText = label + " Overview";
-        });
-    });
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+        datasets: [{
+            label: 'Posture Alerts',
+            data: [12, 19, 8, 15, 10, 5, 7],
+            borderWidth: 2
+        }]
+    }
+});
 </script>
 
 </body>
