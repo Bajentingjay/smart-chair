@@ -1,81 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CTU HEALTH MONITORING SYSTEM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTU HEALTH MONITORING SYSTEM</title>
 
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%,100%{opacity:1;}
+            50%{opacity:0.3;}
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-[#f8f9fa] text-[#191c1d]">
 
 <!-- SIDEBAR -->
-<aside class="fixed w-72 h-full bg-[#0a1629] text-white p-6">
+<aside class="h-screen w-72 fixed left-0 top-0 bg-[#0a1629] text-white flex flex-col py-8 shadow-xl">
 
     <!-- LOGO -->
-    <div class="flex items-center gap-3 mb-10">
-        <div class="w-12 h-12 bg-white rounded-full overflow-hidden">
-            <img src="https://upload.wikimedia.org/wikipedia/en/4/4c/Cebu_Technological_University_logo.png">
-        </div>
-        <div>
-            <h1 class="font-bold">CTU HEALTH</h1>
-            <p class="text-xs text-gray-400">CLINICAL VANGUARD</p>
+    <div class="px-8 mb-10">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-white rounded-full overflow-hidden">
+                <img src="https://upload.wikimedia.org/wikipedia/en/4/4c/Cebu_Technological_University_logo.png">
+            </div>
+            <div>
+                <h1 class="text-lg font-bold">CTU HEALTH</h1>
+                <p class="text-xs text-gray-400 uppercase">CLINICAL VANGUARD</p>
+            </div>
         </div>
     </div>
 
     <!-- NAV -->
-    <nav class="space-y-2">
-        <button onclick="showPage('dashboard')" class="nav-btn w-full text-left p-3 bg-blue-600 rounded">Dashboard</button>
-        <button onclick="showPage('history')" class="nav-btn w-full text-left p-3 hover:bg-gray-700 rounded">History</button>
-        <button onclick="showPage('reports')" class="nav-btn w-full text-left p-3 hover:bg-gray-700 rounded">Reports</button>
-        <button onclick="showPage('settings')" class="nav-btn w-full text-left p-3 hover:bg-gray-700 rounded">Settings</button>
+    <nav class="flex-1 px-4 space-y-2">
+        <button onclick="showPage('dashboard')" class="nav-btn w-full text-left px-4 py-3 bg-white/10 rounded">Dashboard</button>
+        <button onclick="showPage('history')" class="nav-btn w-full text-left px-4 py-3 hover:bg-white/5 rounded">History</button>
+        <button onclick="showPage('reports')" class="nav-btn w-full text-left px-4 py-3 hover:bg-white/5 rounded">Reports</button>
+        <button onclick="showPage('settings')" class="nav-btn w-full text-left px-4 py-3 hover:bg-white/5 rounded">Settings</button>
     </nav>
 
+    <!-- STATUS -->
+    <div class="px-4">
+        <div class="bg-white/5 p-4 rounded">
+            <p class="text-xs text-blue-400">SMART CHAIR</p>
+            <h4 class="text-sm font-semibold">Monitoring Active</h4>
+            <div class="flex items-center gap-2 text-xs text-green-400">
+                <span class="w-2 h-2 bg-green-400 rounded-full pulse-dot"></span>
+                Connected
+            </div>
+        </div>
+    </div>
 </aside>
 
 <!-- MAIN -->
 <main class="ml-72 p-10">
 
-    <h2 id="title" class="text-2xl font-bold mb-6">Dashboard</h2>
+    <h2 id="page-title" class="text-2xl font-bold mb-6">Dashboard</h2>
 
     <!-- DASHBOARD -->
     <div id="dashboard" class="page">
-        <div class="grid grid-cols-3 gap-6">
 
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-white p-6 rounded shadow">
-                <p>Active Users</p>
-                <h1 class="text-3xl font-bold">1,284</h1>
+                <p class="text-gray-500">Active Users</p>
+                <h3 class="text-3xl font-bold">1,284</h3>
             </div>
 
             <div class="bg-white p-6 rounded shadow">
-                <p>Posture Alerts</p>
-                <h1 class="text-3xl font-bold text-red-500">23</h1>
+                <p class="text-gray-500">Posture Alerts</p>
+                <h3 class="text-3xl font-bold text-red-500">23</h3>
             </div>
 
             <div class="bg-white p-6 rounded shadow">
-                <p>System Status</p>
-                <h1 class="text-green-500 font-bold">ACTIVE</h1>
+                <p class="text-gray-500">System Status</p>
+                <h3 class="text-green-600 font-bold">ACTIVE</h3>
             </div>
-
         </div>
 
         <!-- CHART -->
         <div class="bg-white p-6 mt-6 rounded shadow">
-            <canvas id="myChart"></canvas>
+            <canvas id="chart"></canvas>
         </div>
+
     </div>
 
     <!-- HISTORY -->
     <div id="history" class="page hidden">
         <div class="bg-white p-6 rounded shadow">
-            <h3 class="font-bold mb-3">User Logs</h3>
-            <p>No data yet...</p>
+            <h3 class="font-bold mb-3">History Logs</h3>
+            <ul class="text-sm text-gray-600 space-y-2">
+                <li>✔ User 01 posture corrected</li>
+                <li>✔ User 02 alert triggered</li>
+                <li>✔ Session recorded</li>
+            </ul>
         </div>
     </div>
 
@@ -83,29 +110,36 @@
     <div id="reports" class="page hidden">
         <div class="bg-white p-6 rounded shadow">
             <h3 class="font-bold mb-3">Reports</h3>
-            <p>Generate reports soon...</p>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded">Download Report</button>
         </div>
     </div>
 
     <!-- SETTINGS -->
     <div id="settings" class="page hidden">
         <div class="bg-white p-6 rounded shadow">
-            <h3 class="font-bold mb-3">System Settings</h3>
-            <p>Configuration panel...</p>
+            <h3 class="font-bold mb-3">Settings</h3>
+            <label class="block mb-2">System Mode</label>
+            <select class="border p-2 rounded w-full">
+                <option>Automatic</option>
+                <option>Manual</option>
+            </select>
         </div>
     </div>
 
 </main>
 
 <script>
+// PAGE SWITCHING
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
     document.getElementById(pageId).classList.remove('hidden');
-    document.getElementById('title').innerText = pageId.charAt(0).toUpperCase() + pageId.slice(1);
+
+    document.getElementById('page-title').innerText =
+        pageId.charAt(0).toUpperCase() + pageId.slice(1);
 }
 
-// Chart
-const ctx = document.getElementById('myChart');
+// CHART
+const ctx = document.getElementById('chart');
 
 new Chart(ctx, {
     type: 'line',
